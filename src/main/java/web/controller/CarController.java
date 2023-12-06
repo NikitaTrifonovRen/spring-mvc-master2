@@ -11,6 +11,7 @@ import web.DAO.CarDao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CarController {
@@ -25,18 +26,13 @@ public class CarController {
 
     @GetMapping(value = "/cars")
     public String printPartOfCars(@RequestParam(value = "count", required = false) Integer count, ModelMap model) {
-        if (count != null) {
-            if (count <= 5 & count >= 0) {
-                model.addAttribute("cars", carDao.partOfCars(count));
-                return "cars";
-            } else {
-                model.addAttribute("cars", carDao.allCars());
-                return "cars";
-            }
-        } else {
-            model.addAttribute("cars", carDao.allCars());
-            return "cars";
-        }
+        Optional<Integer> trueCount = Optional.ofNullable(count);
+        ModelMap modelMap = trueCount.isPresent() ? model.addAttribute("cars", carDao.partOfCars(count)) : model.addAttribute("cars", carDao.allCars());
+        return "cars";
 
     }
-}
+
+
+    }
+
+

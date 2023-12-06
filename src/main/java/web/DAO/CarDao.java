@@ -5,6 +5,8 @@ import web.Models.Car;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Component
 public class CarDao {
     private List<Car> cars;
@@ -20,12 +22,9 @@ public class CarDao {
     public List<Car> allCars(){
         return cars;
     }
+
     public List<Car> partOfCars(Integer carNumber){
-        if (carNumber != null) {
             return cars.subList(0, carNumber);
-        } else {
-            return cars;
-        }
 
     }
 
